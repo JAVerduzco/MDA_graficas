@@ -80,6 +80,7 @@ def zonaPML(sistema, zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
  
   
   #Escogemos el valor de la columna Precio Zonal 
+  st.write('HOLA PICHONA CACHETONA)
   st.write(f"""
   ### {zona} del {dia_i}-{mes_i}-{año_i} al {dia_f}-{mes_f}-{año_f}
   """
