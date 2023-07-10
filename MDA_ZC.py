@@ -14,7 +14,7 @@ with st.sidebar:
   zona = st.selectbox('Zona de carga',ZC)
   fecha_i = st.date_input(
     "Fecha inicial", 
-  value=None)
+  value=date.today()-1)
   fecha_f = st.date_input(
     "Fecha final",
     value=None)
