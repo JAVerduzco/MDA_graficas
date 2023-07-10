@@ -13,11 +13,11 @@ with st.sidebar:
   sistema = st.selectbox('Sistema',SISTEMAS)
   zona = st.selectbox('Zona de carga',ZC)
   fecha_i = st.date_input(
-    "Fecha inicial",
-    )
+    "Fecha inicial", 
+  value=None)
   fecha_f = st.date_input(
     "Fecha final",
-    )
+    value=None)
 
 
 
