@@ -3,7 +3,7 @@ import requests
 import streamlit as st
 import datetime
 from datetime import timedelta
-import plotly.express as px
+#import plotly.express as px
 #st.sidebar.header('Selección de datos')
 
 
@@ -69,9 +69,9 @@ def zonaPML(sistema, zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   ### {zona} del {dia_i}-{mes_i}-{año_i} al {dia_f}-{mes_f}-{año_f}
   """
   )
-  #st.line_chart(plot_df, x='periodo', y='Precio Zonal (MXN/MWh)')
-  fig = px.line(plot_df, x='periodo', y='Precio Zonal (MXN/MWh)',title= zona )
-  st.plotly_chart(fig)
+  st.line_chart(plot_df, x='periodo', y='Precio Zonal (MXN/MWh)')
+  #fig = px.line(plot_df, x='periodo', y='Precio Zonal (MXN/MWh)',title= zona )
+  #st.plotly_chart(fig)
   st.write(f""" Datos del periodo:
            
    Promedio: {plot_df['Precio Zonal (MXN/MWh)'].mean()},
