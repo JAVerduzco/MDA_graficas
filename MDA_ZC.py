@@ -3,6 +3,7 @@ import requests
 import streamlit as st
 import datetime
 from datetime import timedelta
+import plotly.express as px
 #st.sidebar.header('Selección de datos')
 
 
@@ -61,7 +62,7 @@ def zonaPML(sistema, zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   #print('MDA' + ': Petición concretada')
 
   #Graficamos plot_df una vez hayamos terminado el loop  
-  import plotly.express as px
+ 
   
   #Escogemos el valor de la columna Precio Zonal 
   st.write(f"""
@@ -80,6 +81,9 @@ def zonaPML(sistema, zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
 
    Mínimo: {plot_df['Precio Zonal (MXN/MWh)'].min()}.""")
   #fig.show()
+
+
+
 ZC = ['ACAPULCO', 'AGUASCALIENTES', 'APATZINGAN', 'CABORCA', 'CAMARGO', 'CAMPECHE', 'CANCUN', 'CARMEN', 'CASAS-GRANDES', 'CELAYA', 'CENTRO-ORIENTE', 'CENTRO-SUR', 'CHETUMAL', 'CHIHUAHUA', 'CHILPANCINGO', 'CHONTALPA', 'CIENEGA', 'COATZACOALCOS', 'COLIMA', 'CONSTITUCION', 'CORDOBA', 'CUAUHTEMOC', 'CUAUTLA', 'CUERNAVACA', 'CULIACAN', 'DURANGO', 'ENSENADA', 'FRESNILLO', 'GUADALAJARA', 'GUASAVE', 'GUAYMAS', 'HERMOSILLO', 'HUAJUAPAN', 'HUASTECA', 'HUATULCO', 'HUEJUTLA', 'IGUALA', 'IRAPUATO', 'IXMIQUILPAN', 'IZUCAR', 'JIQUILPAN', 'JUAREZ', 'LA-PAZ', 'LAGUNA', 'LAZARO-CARDENAS', 'LEON', 'LOS-ALTOS', 'LOS-CABOS', 'LOS-MOCHIS', 'LOS-RIOS', 'LOS-TUXTLAS', 'MANZANILLO', 'MATAMOROS', 'MATEHUALA', 'MAZATLAN', 'MERIDA', 'MEXICALI', 'MINAS', 'MONCLOVA', 'MONTEMORELOS', 'MONTERREY', 'MORELIA', 'MORELOS', 'MOTUL-TIZIMIN', 'NAVOJOA', 'NOGALES', 'NUEVO-LAREDO', 'OAXACA', 'OBREGON', 'ORIZABA', 'PIEDRAS-NEGRAS', 'POZA-RICA', 'PUEBLA', 'QUERETARO', 'REYNOSA', 'RIVIERA-MAYA', 'SABINAS', 'SALTILLO', 'SALVATIERRA', 'SAN-CRISTOBAL', 'SAN-JUAN-DEL-RIO', 'SAN-LUIS-POTOSI', 'SAN-MARTIN', 'SANLUIS', 'TAMPICO', 'TAPACHULA', 'TECAMACHALCO', 'TEHUACAN', 'TEHUANTEPEC', 'TEPIC-VALLARTA', 'TEZIUTLAN', 'TICUL', 'TIJUANA', 'TLAXCALA', 'TUXTLA', 'URUAPAN', 'VDM-CENTRO', 'VDM-NORTE', 'VDM-SUR', 'VERACRUZ', 'VICTORIA', 'VILLAHERMOSA', 'XALAPA', 'ZACAPU', 'ZACATECAS', 'ZAMORA', 'ZAPOTLAN', 'ZIHUATANEJO']
 SISTEMAS = ['SIN','BCA', 'BCS']
 with st.sidebar:
