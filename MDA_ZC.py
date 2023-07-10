@@ -17,7 +17,7 @@ with st.sidebar:
   datetime.date(2019, 7, 6))
   fecha_f = st.date_input(
     "Fecha final",
-    value=None)
+    datetime.date(2019, 7, 6))
 
 
 
