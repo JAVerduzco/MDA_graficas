@@ -56,11 +56,15 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   fig = px.line(plot_df, x='Periodo', y='Precio Zonal (MXN/MWh)',title= zona )
   st.plotly_chart(fig, use_container_width=True)
   # estadistica
-  stat_dict = {'Promedio': plot_df['Precio Zonal (MXN/MWh)'].mean(),
-               'Máximo': plot_df['Precio Zonal (MXN/MWh)'].max(),
-               'Mínimo': plot_df['Precio Zonal (MXN/MWh)'].min()}
-  stat_df = pd.DataFrame.from_dict(stat_dict, orient ='index') 
-  stat_df.rename(columns={0:'MXN/MWh'})
+  prom = plot_df['Precio Zonal (MXN/MWh)'].mean()
+  maxv = plot_df['Precio Zonal (MXN/MWh)'].max()
+  minv = plot_df['Precio Zonal (MXN/MWh)'].min()
+  
+  stat_dict = {'Medida':['Promedio', 'Máximo', 'Mínimo'],
+               'MXN/MWh': [round(prom,2),round(maxv,2),round(minv,2)]}
+
+  stat_df = pd.DataFrame.from_dict(stat_dict) 
+  stat_df = stat_df.set_index('Medida')
   st.dataframe(stat_df)
   
   ### ----------- FIN DE LA FUNCION ---------------
