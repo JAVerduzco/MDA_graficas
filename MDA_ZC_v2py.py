@@ -97,7 +97,7 @@ zonaPML(sistema,
 
 styl = f"""
 <style>
-    .stTextInput {{
+    .stTextInput {{eee
       position: fixed;
       bottom: 3rem;
     }}
