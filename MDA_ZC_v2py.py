@@ -68,6 +68,7 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
 
   stat_df = pd.DataFrame.from_dict(stat_dict) 
   stat_df = stat_df.set_index('Medida')
+  st.write('Estadística del periodo:')
   st.dataframe(stat_df)
   
   ### ----------- FIN DE LA FUNCION ---------------
