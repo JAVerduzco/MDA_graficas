@@ -55,7 +55,14 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   ## Graficar
   fig = px.line(plot_df, x='Periodo', y='Precio Zonal (MXN/MWh)',title= zona )
   st.plotly_chart(fig, use_container_width=True)
-  #st.line_chart(plot_df, x='Periodo', y='Precio Zonal (MXN/MWh)')
+  # estadistica
+  stat_dict = {'Promedio': plot_df['Precio Zonal (MXN/MWh)'].mean(),
+               'Máximo': plot_df['Precio Zonal (MXN/MWh)'].max(),
+               'Mínimo': plot_df['Precio Zonal (MXN/MWh)'].min()}
+  stat_df = pd.DataFrame.from_dict(stat_dict, orient ='index') 
+  stat_df.rename(columns={'0':'MXN/MWh'})
+  st.dataframe(stat_df)
+  #FIN DE LA FUNCION
   
 
 
