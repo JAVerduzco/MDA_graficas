@@ -121,7 +121,7 @@ text-align: center;
 }
 </style>
 <div class="footer">
-<p>Made by ❤ by <a style='display: block; text-align: center;' href="https://www.linkedin.com/in/alejandroverduzco/" target="_blank">Alejandro Verduzco</a></p>
+<p>Made by <a style='display: block; text-align: center;' href="https://www.linkedin.com/in/alejandroverduzco/" target="_blank">Alejandro Verduzco</a></p>
 </div>
 """
 st.markdown(footer,unsafe_allow_html=True)
