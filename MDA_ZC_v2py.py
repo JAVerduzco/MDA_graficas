@@ -60,9 +60,10 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
                'Máximo': plot_df['Precio Zonal (MXN/MWh)'].max(),
                'Mínimo': plot_df['Precio Zonal (MXN/MWh)'].min()}
   stat_df = pd.DataFrame.from_dict(stat_dict, orient ='index') 
-  stat_df.rename(columns={'0':'MXN/MWh'})
+  stat_df.rename(columns={0:'MXN/MWh'})
   st.dataframe(stat_df)
-  #FIN DE LA FUNCION
+  
+  ### ----------- FIN DE LA FUNCION ---------------
   
 
 
