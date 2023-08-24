@@ -104,4 +104,4 @@ styl = f"""
 </style>
 """
 st.markdown(styl, unsafe_allow_html=True)
-st.markdown('######  Made by **Alejandro Verduzco**.')
+#st.markdown('######  Made by **Alejandro Verduzco**.')
