@@ -95,4 +95,13 @@ zonaPML(sistema,
         str(fecha_f.month).zfill(2),
         str(fecha_f.day).zfill(2))
 
-st.markdown('### Made by **Alejandro Verduzco**.')
+styl = f"""
+<style>
+    .stTextInput {{
+      position: fixed;
+      bottom: 3rem;
+    }}
+</style>
+"""
+st.markdown(styl, unsafe_allow_html=True)
+st.markdown('######  Made by **Alejandro Verduzco**.')
