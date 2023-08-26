@@ -86,7 +86,14 @@ with st.sidebar:
                           hoy)
              
 
-zonaPML(sistema,
+# Calcular diferencia de dias
+date_difference=(fecha_f-fecha_i).days
+
+if date_difference > 6:
+  error_dias = "Máximo 7 días por solicitud."
+  st.error(error_dias)
+else:
+  zonaPML(sistema,
         zona,
         str(fecha_i.year),
         str(fecha_i.month).zfill(2),
@@ -94,6 +101,7 @@ zonaPML(sistema,
         str(fecha_f.year),
         str(fecha_f.month).zfill(2),
         str(fecha_f.day).zfill(2))
+
 
 
 ## Footer
