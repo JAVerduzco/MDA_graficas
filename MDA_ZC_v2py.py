@@ -4,8 +4,7 @@ import requests
 import streamlit as st
 import plotly.express as px
 
-#st.beta_set_page_config( layout='wide') # to center tables
-
+st.title('Precios de Energía en Nodos Distribuidos del MDA')
 ZC = ['ACAPULCO', 'AGUASCALIENTES', 'APATZINGAN', 'CABORCA', 'CAMARGO', 'CAMPECHE', 'CANCUN', 'CARMEN', 'CASAS-GRANDES', 'CELAYA', 'CENTRO-ORIENTE', 'CENTRO-SUR', 'CHETUMAL', 'CHIHUAHUA', 'CHILPANCINGO', 'CHONTALPA', 'CIENEGA', 'COATZACOALCOS', 'COLIMA', 'CONSTITUCION', 'CORDOBA', 'CUAUHTEMOC', 'CUAUTLA', 'CUERNAVACA', 'CULIACAN', 'DURANGO', 'ENSENADA', 'FRESNILLO', 'GUADALAJARA', 'GUASAVE', 'GUAYMAS', 'HERMOSILLO', 'HUAJUAPAN', 'HUASTECA', 'HUATULCO', 'HUEJUTLA', 'IGUALA', 'IRAPUATO', 'IXMIQUILPAN', 'IZUCAR', 'JIQUILPAN', 'JUAREZ', 'LA-PAZ', 'LAGUNA', 'LAZARO-CARDENAS', 'LEON', 'LOS-ALTOS', 'LOS-CABOS', 'LOS-MOCHIS', 'LOS-RIOS', 'LOS-TUXTLAS', 'MANZANILLO', 'MATAMOROS', 'MATEHUALA', 'MAZATLAN', 'MERIDA', 'MEXICALI', 'MINAS', 'MONCLOVA', 'MONTEMORELOS', 'MONTERREY', 'MORELIA', 'MORELOS', 'MOTUL-TIZIMIN', 'NAVOJOA', 'NOGALES', 'NUEVO-LAREDO', 'OAXACA', 'OBREGON', 'ORIZABA', 'PIEDRAS-NEGRAS', 'POZA-RICA', 'PUEBLA', 'QUERETARO', 'REYNOSA', 'RIVIERA-MAYA', 'SABINAS', 'SALTILLO', 'SALVATIERRA', 'SAN-CRISTOBAL', 'SAN-JUAN-DEL-RIO', 'SAN-LUIS-POTOSI', 'SAN-MARTIN', 'SANLUIS', 'TAMPICO', 'TAPACHULA', 'TECAMACHALCO', 'TEHUACAN', 'TEHUANTEPEC', 'TEPIC-VALLARTA', 'TEZIUTLAN', 'TICUL', 'TIJUANA', 'TLAXCALA', 'TUXTLA', 'URUAPAN', 'VDM-CENTRO', 'VDM-NORTE', 'VDM-SUR', 'VERACRUZ', 'VICTORIA', 'VILLAHERMOSA', 'XALAPA', 'ZACAPU', 'ZACATECAS', 'ZAMORA', 'ZAPOTLAN', 'ZIHUATANEJO']
 SISTEMAS = ['SIN','BCA', 'BCS']
 
@@ -84,24 +83,32 @@ with st.sidebar:
                           hoy)
   fecha_f = st.date_input("Fecha final",
                           hoy)
+  # Calcular diferencia de dias para error handling
+  date_difference=(fecha_f-fecha_i).days
+  if st.button('OK',type='primary'):
+    inicio = 1
+
+  else:
+    inicio = 0
              
 
-# Calcular diferencia de dias
-date_difference=(fecha_f-fecha_i).days
-
-if date_difference > 6:
-  error_dias = "Máximo 7 días por solicitud."
-  st.error(error_dias)
+if inicio==1:
+  if date_difference > 6:
+    error_dias = "Máximo 7 días por solicitud."
+    st.error(error_dias)
+  elif date_difference <= -1:
+    st.error("Fecha inicial posterior a fecha final.")
+  else:
+    zonaPML(sistema,
+          zona,
+          str(fecha_i.year),
+          str(fecha_i.month).zfill(2),
+          str(fecha_i.day).zfill(2),
+          str(fecha_f.year),
+          str(fecha_f.month).zfill(2),
+          str(fecha_f.day).zfill(2))
 else:
-  zonaPML(sistema,
-        zona,
-        str(fecha_i.year),
-        str(fecha_i.month).zfill(2),
-        str(fecha_i.day).zfill(2),
-        str(fecha_f.year),
-        str(fecha_f.month).zfill(2),
-        str(fecha_f.day).zfill(2))
-
+  st.write('Seleccione Sistema, Zona de Carga y un periodo no mayor a 7 días.')
 
 
 ## Footer
