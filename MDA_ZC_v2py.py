@@ -3,12 +3,21 @@ import pandas as pd
 import requests
 import streamlit as st
 import plotly.express as px
+import plotly.graph_objects as go
+
 
 st.title('Precios de Energía en Nodos Distribuidos del MDA')
 ZC = ['ACAPULCO', 'AGUASCALIENTES', 'APATZINGAN', 'CABORCA', 'CAMARGO', 'CAMPECHE', 'CANCUN', 'CARMEN', 'CASAS-GRANDES', 'CELAYA', 'CENTRO-ORIENTE', 'CENTRO-SUR', 'CHETUMAL', 'CHIHUAHUA', 'CHILPANCINGO', 'CHONTALPA', 'CIENEGA', 'COATZACOALCOS', 'COLIMA', 'CONSTITUCION', 'CORDOBA', 'CUAUHTEMOC', 'CUAUTLA', 'CUERNAVACA', 'CULIACAN', 'DURANGO', 'ENSENADA', 'FRESNILLO', 'GUADALAJARA', 'GUASAVE', 'GUAYMAS', 'HERMOSILLO', 'HUAJUAPAN', 'HUASTECA', 'HUATULCO', 'HUEJUTLA', 'IGUALA', 'IRAPUATO', 'IXMIQUILPAN', 'IZUCAR', 'JIQUILPAN', 'JUAREZ', 'LA-PAZ', 'LAGUNA', 'LAZARO-CARDENAS', 'LEON', 'LOS-ALTOS', 'LOS-CABOS', 'LOS-MOCHIS', 'LOS-RIOS', 'LOS-TUXTLAS', 'MANZANILLO', 'MATAMOROS', 'MATEHUALA', 'MAZATLAN', 'MERIDA', 'MEXICALI', 'MINAS', 'MONCLOVA', 'MONTEMORELOS', 'MONTERREY', 'MORELIA', 'MORELOS', 'MOTUL-TIZIMIN', 'NAVOJOA', 'NOGALES', 'NUEVO-LAREDO', 'OAXACA', 'OBREGON', 'ORIZABA', 'PIEDRAS-NEGRAS', 'POZA-RICA', 'PUEBLA', 'QUERETARO', 'REYNOSA', 'RIVIERA-MAYA', 'SABINAS', 'SALTILLO', 'SALVATIERRA', 'SAN-CRISTOBAL', 'SAN-JUAN-DEL-RIO', 'SAN-LUIS-POTOSI', 'SAN-MARTIN', 'SANLUIS', 'TAMPICO', 'TAPACHULA', 'TECAMACHALCO', 'TEHUACAN', 'TEHUANTEPEC', 'TEPIC-VALLARTA', 'TEZIUTLAN', 'TICUL', 'TIJUANA', 'TLAXCALA', 'TUXTLA', 'URUAPAN', 'VDM-CENTRO', 'VDM-NORTE', 'VDM-SUR', 'VERACRUZ', 'VICTORIA', 'VILLAHERMOSA', 'XALAPA', 'ZACAPU', 'ZACATECAS', 'ZAMORA', 'ZAPOTLAN', 'ZIHUATANEJO']
 SISTEMAS = ['SIN','BCA', 'BCS']
+nodos = pd.read_csv('https://raw.githubusercontent.com/JAVerduzco/MDA_graficas/main/nodos_cat.csv')
+nodos['ZONA DE CARGA'] = nodos['ZONA DE CARGA'].str.replace(' ', '-')
+ZC_SISTEMA = nodos.groupby('SISTEMA')['ZONA DE CARGA'].unique()
+BCA = ZC_SISTEMA[0]
+BCS = ZC_SISTEMA[1]
+SIN = ZC_SISTEMA[2]
 
 
+  ### ----------- INICIO DE LA FUNCION ---------------------------------------------
 def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   #Información requerida
   base_url = "https://ws01.cenace.gob.mx:8082/SWPEND/SIM/"
@@ -55,6 +64,17 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   
   ## Graficar
   fig = px.line(plot_df, x='Periodo', y='Precio Zonal (MXN/MWh)',title = zona + ' ' + str(fecha_i) + ' - ' + str(fecha_f) )
+    # Find the index of the maximum value in the 'Precio Zonal (MXN/MWh)' column
+  max_value_index = plot_df['Precio Zonal (MXN/MWh)'].idxmax()
+
+  # Get the corresponding x and y values for the maximum value
+  max_x = plot_df.loc[max_value_index, 'Periodo']
+  max_y = plot_df.loc[max_value_index, 'Precio Zonal (MXN/MWh)']
+
+  # Add a red dot at the maximum value
+  fig.add_trace(go.Scatter(x=[max_x], y=[max_y], mode='markers', marker=dict(color='red'), name='Precio Máximo'))
+
+  fig.update_traces(showlegend=False, selector=dict(name='Precio Máximo'))
   st.plotly_chart(fig, use_container_width=True)
   
   # Estadistica
@@ -70,7 +90,7 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   st.write('Estadística del periodo:')
   st.dataframe(stat_df)
   
-  ### ----------- FIN DE LA FUNCION ---------------
+  ### ----------- FIN DE LA FUNCION ---------------------------------------------
   
 
 
