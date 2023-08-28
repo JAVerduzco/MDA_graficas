@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 import streamlit as st
 import plotly.express as px
-import plotly.graph_objects as go
+#import plotly.graph_objects as go
 
 
 st.title('Precios de Energía en Nodos Distribuidos del MDA')
@@ -72,9 +72,9 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   max_y = plot_df.loc[max_value_index, 'Precio Zonal (MXN/MWh)']
 
   # Add a red dot at the maximum value
-  fig.add_trace(go.Scatter(x=[max_x], y=[max_y], mode='markers', marker=dict(color='red'), name='Precio Máximo'))
+  #fig.add_trace(go.Scatter(x=[max_x], y=[max_y], mode='markers', marker=dict(color='red'), name='Precio Máximo'))
 
-  fig.update_traces(showlegend=False, selector=dict(name='Precio Máximo'))
+  #fig.update_traces(showlegend=False, selector=dict(name='Precio Máximo'))
   st.plotly_chart(fig, use_container_width=True)
   
   # Estadistica
@@ -98,11 +98,18 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
 hoy = datetime.date.today()
 with st.sidebar:
   sistema = st.selectbox('Sistema',SISTEMAS)
-  zona = st.selectbox('Zona de carga',ZC)
+  if sistema == 'BCA':
+    zona = st.selectbox('Zona de carga', BCA)
+  elif sistema == 'BCS':
+    zona = st.selectbox('Zona de carga', BCS)
+  else:
+    zona = st.selectbox('Zona de carga', SIN)  
+
   fecha_i = st.date_input("Fecha inicial", 
                           hoy)
   fecha_f = st.date_input("Fecha final",
                           hoy)
+  
   # Calcular diferencia de dias para error handling
   date_difference=(fecha_f-fecha_i).days
   if st.button('OK',type='primary'):
