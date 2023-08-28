@@ -72,9 +72,10 @@ def zonaPML(sistema,zona,año_i,mes_i,dia_i,año_f,mes_f,dia_f):
   max_y = plot_df.loc[max_value_index, 'Precio Zonal (MXN/MWh)']
 
   # Add a red dot at the maximum value
-  #fig.add_trace(go.Scatter(x=[max_x], y=[max_y], mode='markers', marker=dict(color='red'), name='Precio Máximo'))
+  fig.add_trace(go.Scatter(x=[max_x], y=[max_y], mode='markers', marker=dict(color='red'), name='Precio Máximo'))
 
-  #fig.update_traces(showlegend=False, selector=dict(name='Precio Máximo'))
+  fig.update_traces(showlegend=False, selector=dict(name='Precio Máximo'))
+  # Mostrar grafica
   st.plotly_chart(fig, use_container_width=True)
   
   # Estadistica
