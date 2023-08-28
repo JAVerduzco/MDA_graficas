@@ -4,4 +4,4 @@ pandas
 requests
 datetime
 plotly.express
-plotly.graph_objects
+
